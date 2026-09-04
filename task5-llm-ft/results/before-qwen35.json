@@ -1,0 +1,25 @@
+{
+  "model": "Qwen/Qwen3.5-2B",
+  "adapter": null,
+  "results": {
+    "cls": {
+      "accuracy": 83.67,
+      "n": 300,
+      "sec": 7.3
+    },
+    "ner": {
+      "f1": 20.07,
+      "precision": 42.75,
+      "recall": 13.12,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 56.1
+    },
+    "mrc": {
+      "em": 67.33,
+      "f1": 81.64,
+      "n": 300,
+      "sec": 26.9
+    }
+  }
+}

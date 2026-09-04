@@ -1,0 +1,262 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LLM 파인튜닝 데모</title>
+    <!-- 외부 CDN(jQuery·Bootstrap)을 쓰지 않는다. 강의장 회선이 느리거나 막혀도 그대로 동작해야 한다. -->
+    <style>
+        :root {
+            --fg: #23201d; --muted: #6f6a63; --line: #e3ded6; --card: #ffffff; --bg: #fbfaf8;
+            --accent: #7a5cff; --soft: #efeaff; --ok: #2f7d4a; --ok-soft: #e6f4ea;
+            --bad: #a63d2f; --code: #f4f1ec; --field: #ffffff;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --fg: #e9e5df; --muted: #9c968d; --line: #3a3740; --card: #1f1e23; --bg: #17161a;
+                --accent: #a48cff; --soft: #2a2340; --ok: #6cc48a; --ok-soft: #1d3326;
+                --bad: #e08a7c; --code: #26242b; --field: #26242b;
+            }
+        }
+        :root[data-theme="dark"] {
+            --fg: #e9e5df; --muted: #9c968d; --line: #3a3740; --card: #1f1e23; --bg: #17161a;
+            --accent: #a48cff; --soft: #2a2340; --ok: #6cc48a; --ok-soft: #1d3326;
+            --bad: #e08a7c; --code: #26242b; --field: #26242b;
+        }
+        :root[data-theme="light"] {
+            --fg: #23201d; --muted: #6f6a63; --line: #e3ded6; --card: #ffffff; --bg: #fbfaf8;
+            --accent: #7a5cff; --soft: #efeaff; --ok: #2f7d4a; --ok-soft: #e6f4ea;
+            --bad: #a63d2f; --code: #f4f1ec; --field: #ffffff;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; padding: 30px; background: var(--bg); color: var(--fg);
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard",
+                         "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 15px; line-height: 1.65;
+        }
+        .card {
+            border: 1px solid var(--line); border-radius: 12px; background: var(--card);
+            padding: 18px 22px 16px; max-width: 46rem;
+        }
+        .card-header {
+            font-size: .82rem; font-weight: 700; letter-spacing: .04em; color: var(--muted);
+            border-bottom: 1px solid var(--line); padding-bottom: 8px; margin-bottom: 12px;
+        }
+        h1 { font-size: 1.15rem; font-weight: 700; margin: 0 0 8px; }
+        .lead { color: var(--muted); font-size: .93rem; margin: 0 0 16px; }
+        hr { border: none; border-top: 1px solid var(--line); margin: 18px 0; }
+
+        /* 태스크 선택 (기존 nav-pills 자리) */
+        .tabs { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; padding: 0; list-style: none; }
+        .tab {
+            border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 999px;
+            padding: 5px 14px; cursor: pointer; font: inherit; font-size: .9rem;
+        }
+        .tab:hover { border-color: var(--accent); background: var(--soft); }
+        .tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+        .tab.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+
+        /* 입력 칸 */
+        label { display: block; font-weight: 700; font-size: .88rem; margin-bottom: 4px; }
+        label.gap { margin-top: 12px; }
+        input[type="text"], textarea {
+            display: block; width: 100%; border: 1px solid var(--line); border-radius: 9px;
+            background: var(--field); color: var(--fg); padding: 8px 12px; font: inherit;
+            font-size: .93rem; line-height: 1.55; resize: vertical;
+        }
+        input[type="text"]:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+
+        .runbar { display: flex; align-items: center; gap: 10px; margin-top: 16px; }
+        .btn {
+            background: var(--accent); border: 1px solid var(--accent); color: #fff; font-weight: 600;
+            border-radius: 9px; padding: 8px 18px; cursor: pointer; font: inherit; font-size: .93rem;
+        }
+        .btn:hover:not(:disabled) { filter: brightness(1.08); }
+        .btn:disabled { opacity: .5; cursor: default; }
+        .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+        #status { font-size: .88rem; color: var(--muted); }
+
+        /* 학습 전 / 학습 후 나란히 */
+        .cols { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        @media (min-width: 640px) { .cols { grid-template-columns: 1fr 1fr; } }
+        .box { border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px 12px; background: var(--bg); }
+        .box.after { border-color: var(--ok); background: var(--ok-soft); }
+        .box .cap { font-size: .9rem; }
+        .box .cap b { font-weight: 700; }
+        .box .cap small { color: var(--muted); font-size: .8rem; margin-left: 4px; }
+        .out {
+            margin: 8px 0 0; white-space: pre-wrap; word-break: break-all;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: .86rem; line-height: 1.55;
+        }
+        [hidden] { display: none !important; }
+
+        details { margin-top: 16px; }
+        summary { color: var(--muted); font-size: .9rem; cursor: pointer; }
+        #prompt {
+            margin: 10px 0 0; background: var(--code); border: 1px solid var(--line); border-radius: 8px;
+            padding: 10px 12px; white-space: pre-wrap; overflow-x: auto;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: .8rem; line-height: 1.55;
+        }
+        .foot { color: var(--muted); font-size: .82rem; margin: 0; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="card-header">DeepKNLP · 실습5</div>
+
+    <h1>내가 파인튜닝한 LLM에게 물어보기</h1>
+    <p class="lead">
+        하나의 모델이 여섯 태스크를 모두 처리합니다.
+        BERT 실습에서는 태스크마다 모델을 따로 학습시켰지만, 여기서는 <b>지시문만 바꿉니다.</b><br>
+        앞의 네 개(주제분류·개체명인식·기계독해·문장유사도)는 BERT·T5와 같은 데이터로 겨루는 태스크이고,
+        뒤의 두 개(수학추론·SQL생성)는 답이 라벨도 지문 속 위치도 아니어서 BERT 구조로는 풀 수 없는 태스크입니다.
+    </p>
+
+    <ul class="tabs" id="taskTabs">
+        {% for t in tasks %}
+        <li><button type="button" class="tab {% if loop.first %}active{% endif %}" data-task="{{ t.id }}">{{ t.name }}</button></li>
+        {% endfor %}
+    </ul>
+
+    <div id="fields"></div>
+
+    <div class="runbar">
+        <button type="button" class="btn" onclick="api_call()" id="run-btn">모델에게 물어보기</button>
+        <span id="status"></span>
+    </div>
+
+    <hr>
+
+    <div class="cols">
+        <div class="box" id="before-col">
+            <div class="cap"><b>학습 전</b> <small>(LoRA 어댑터 끔)</small></div>
+            <pre class="out" id="before"></pre>
+        </div>
+        <div class="box after">
+            <div class="cap"><b>학습 후</b> <small>(내가 학습시킨 LoRA)</small></div>
+            <pre class="out" id="after"></pre>
+        </div>
+    </div>
+
+    <details>
+        <summary>모델에 실제로 들어간 프롬프트 보기</summary>
+        <pre id="prompt"></pre>
+    </details>
+
+    <hr>
+    <p class="foot">
+        [AI아카데미] A4021 언어지능: 언어모델 기반 자연어처리 실습 기초 ·
+        실습 구성은 ratsgo's nlpbook의 구성을 참고했습니다.
+    </p>
+</div>
+
+<script>
+    var TASKS = {{ tasks | tojson }};
+    var HAS_ADAPTER = {{ 'true' if has_adapter else 'false' }};
+    var currentTask = TASKS.length ? TASKS[0].id : "tc";
+
+    // 태스크별 입력 칸: [칸 이름, 라벨, 기본값, 여러 줄인가]
+    // 칸 이름은 common.TASKS 지시문의 자리표시자와 같아야 한다 (serve.py TASK_FIELDS 참고).
+    var FIELD_DEFS = {
+        // --- 세 방식(BERT·T5·GPT 계열)이 모두 풀 수 있는 네 태스크 ---
+        tc:  [["text", "뉴스 제목", "한은, 기준금리 연 2.5%로 동결…물가 상승 압력 고려", false]],
+        ner: [["text", "문장", "손흥민은 2015년 토트넘 홋스퍼에 입단했다.", false]],
+        mrc: [["context", "지문", "토트넘 홋스퍼는 1882년에 창단된 잉글랜드의 축구 클럽이다. 연고지는 런던 북부이며, 홈 구장은 토트넘 홋스퍼 스타디움이다. 손흥민은 2015년에 이 팀에 입단했다.", true],
+              ["question", "질문", "손흥민이 토트넘에 입단한 해는?", false]],
+        // 문장유사도 기본 예시는 평가셋(data/llm-ft/eval_sts.jsonl)에서 그대로 가져온 실제 한 건이다. 정답은 4.6점.
+        sts: [["sentence1", "문장1", "타이 쿠킹클래스가 처음인 분들께 추천합니다", false],
+              ["sentence2", "문장2", "태국 요리 교실에 처음 오신 분들께 추천합니다.", false]],
+        // --- 생성 모델(T5·LLM)만 풀 수 있는 두 태스크 ---
+        // 수학추론: 문제 하나만 넣는다. 모델은 풀이를 쓰고 마지막 줄에 `#### 답` 을 쓴다.
+        math: [["question", "수학 문제", "영희는 사탕 32개를 가지고 있었다. 친구 4명에게 5개씩 나누어 주고, 남은 사탕의 절반을 동생에게 주었다. 영희에게 남은 사탕은 몇 개인가?", true]],
+        // SQL생성: 스키마 + 질문 두 칸. 스키마는 Spider 형식(테이블 : 컬럼 (타입) , ... | 다음 테이블)이다.
+        sql: [["schema", "DB 스키마", "singer : singer_id (number) , name (text) , country (text) , age (number) | concert : concert_id (number) , concert_name (text) , stadium_id (number) , year (text) | singer_in_concert : concert_id (number) , singer_id (number)", true],
+              ["question", "질문", "나이가 30세 미만인 가수의 이름을 나이가 많은 순서로 보여줘.", false]],
+        // --- 옛 구성(2026-08)으로 학습한 어댑터를 띄울 때만 쓰인다 ---
+        cls: [["text", "리뷰 문장", "연기도 어색하고 스토리도 지루했어요.", false]],
+        nli: [["premise", "전제", "그는 어제 밤늦게까지 회사에서 보고서를 썼다.", false],
+              ["hypothesis", "가설", "그는 어제 일찍 퇴근했다.", false]]
+    };
+
+    function el(id) { return document.getElementById(id); }
+    function setText(id, v) { el(id).textContent = v; }
+
+    // 입력 칸을 직접 만든다 (문자열 조립 대신 DOM API — 따옴표·꺾쇠 escape 걱정이 없다).
+    function renderFields(task) {
+        var defs = FIELD_DEFS[task] || [["text", "입력", "", false]];
+        var box = el("fields");
+        box.innerHTML = "";
+        defs.forEach(function (d, i) {
+            var label = document.createElement("label");
+            label.textContent = d[1];
+            if (i) { label.className = "gap"; }
+            box.appendChild(label);
+
+            var input;
+            if (d[3]) {
+                input = document.createElement("textarea");
+                input.rows = 5;
+            } else {
+                input = document.createElement("input");
+                input.type = "text";
+                input.addEventListener("keypress", function (e) {
+                    if (e.key === "Enter") { e.preventDefault(); api_call(); }
+                });
+            }
+            input.setAttribute("data-field", d[0]);
+            input.value = d[2];
+            box.appendChild(input);
+        });
+    }
+
+    var tabs = document.querySelectorAll("#taskTabs .tab");
+    Array.prototype.forEach.call(tabs, function (tab) {
+        tab.addEventListener("click", function (e) {
+            e.preventDefault();
+            Array.prototype.forEach.call(tabs, function (o) { o.classList.remove("active"); });
+            tab.classList.add("active");
+            currentTask = tab.getAttribute("data-task");
+            renderFields(currentTask);
+            setText("before", "");
+            setText("after", "");
+            setText("prompt", "");
+        });
+    });
+
+    renderFields(currentTask);
+    if (!HAS_ADAPTER) {
+        el("before-col").hidden = true;
+    }
+
+    function api_call() {
+        var body = {task: currentTask};
+        var inputs = document.querySelectorAll("#fields [data-field]");
+        Array.prototype.forEach.call(inputs, function (input) {
+            body[input.getAttribute("data-field")] = input.value;
+        });
+
+        setText("status", "생성 중...");
+        el("run-btn").disabled = true;
+
+        fetch("/api", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(body)
+        }).then(function (res) {
+            if (!res.ok) { throw new Error(res.status); }
+            return res.json();
+        }).then(function (data) {
+            setText("before", data.before === null ? "(어댑터 없이 실행 중)" : data.before);
+            setText("after", data.after);
+            setText("prompt", data.prompt);
+            setText("status", "");
+            el("run-btn").disabled = false;
+        }).catch(function (err) {
+            setText("status", "오류: " + err.message);
+            el("run-btn").disabled = false;
+        });
+    }
+</script>
+</body>

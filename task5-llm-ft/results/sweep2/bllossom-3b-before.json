@@ -1,0 +1,48 @@
+{
+  "model": "Bllossom/llama-3.2-Korean-Bllossom-3B",
+  "adapter": null,
+  "data": "data/llm-ft",
+  "results": {
+    "tc": {
+      "accuracy": 45.33,
+      "broken_format": 11,
+      "macro_f1": 48.21,
+      "n": 300,
+      "sec": 11.2
+    },
+    "ner": {
+      "f1": 10.41,
+      "precision": 19.47,
+      "recall": 7.1,
+      "broken_format": 24,
+      "n": 300,
+      "sec": 175.5
+    },
+    "mrc": {
+      "em": 60.67,
+      "f1": 77.66,
+      "n": 300,
+      "sec": 56.6
+    },
+    "sts": {
+      "pearson": 7.74,
+      "binary_accuracy": 42.67,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 12.9
+    },
+    "math": {
+      "em": 37.67,
+      "broken_format": 56,
+      "n": 300,
+      "sec": 346.2
+    },
+    "sql": {
+      "em": 22.0,
+      "token_f1": 72.33,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 87.1
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "model": "Qwen/Qwen3.5-2B-Base",
+  "adapter": "output/sweep/qwen35-2b-base",
+  "data": "data/llm-ft",
+  "results": {
+    "cls": {
+      "accuracy": 86.0,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 6.3
+    },
+    "ner": {
+      "f1": 80.12,
+      "precision": 80.96,
+      "recall": 79.3,
+      "broken_format": 2,
+      "n": 300,
+      "sec": 89.0
+    },
+    "mrc": {
+      "em": 81.67,
+      "f1": 90.62,
+      "n": 300,
+      "sec": 17.9
+    },
+    "tc": {
+      "accuracy": 79.67,
+      "broken_format": 0,
+      "macro_f1": 79.72,
+      "n": 300,
+      "sec": 5.1
+    },
+    "nli": {
+      "accuracy": 85.67,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 6.9
+    },
+    "sts": {
+      "pearson": 86.55,
+      "binary_accuracy": 86.33,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 7.3
+    }
+  }
+}

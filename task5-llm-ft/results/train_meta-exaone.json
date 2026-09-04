@@ -1,0 +1,19 @@
+{
+  "model": "LGAI-EXAONE/EXAONE-4.0-1.2B",
+  "n_train": 3000,
+  "per_task": {
+    "ner": 1000,
+    "mrc": 800,
+    "cls": 1200
+  },
+  "epochs": 1.0,
+  "batch_size": 4,
+  "grad_accum": 4,
+  "lr": 0.0002,
+  "max_length": 1024,
+  "lora_r": 16,
+  "load_4bit": false,
+  "loss_mode": "전체 시퀀스 (템플릿 제약)",
+  "train_seconds": 340.4,
+  "peak_gpu_gb": 4.19
+}

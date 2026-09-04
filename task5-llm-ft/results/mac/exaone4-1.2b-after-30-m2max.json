@@ -1,0 +1,61 @@
+{
+  "model": "LGAI-EXAONE/EXAONE-4.0-1.2B",
+  "adapter": "results/sweep2 adapter (trained on RTX A6000), evaluated on Mac",
+  "data": "data/llm-ft",
+  "results": {
+    "cls": {
+      "accuracy": 73.33,
+      "broken_format": 0,
+      "n": 30,
+      "sec": 3.2
+    },
+    "ner": {
+      "f1": 63.57,
+      "precision": 66.13,
+      "recall": 61.19,
+      "broken_format": 0,
+      "n": 30,
+      "sec": 21.0
+    },
+    "mrc": {
+      "em": 73.33,
+      "f1": 86.81,
+      "n": 30,
+      "sec": 11.7
+    },
+    "tc": {
+      "accuracy": 76.67,
+      "broken_format": 0,
+      "macro_f1": 56.68,
+      "n": 30,
+      "sec": 2.5
+    },
+    "nli": {
+      "accuracy": 56.67,
+      "broken_format": 0,
+      "n": 30,
+      "sec": 4.4
+    },
+    "sts": {
+      "pearson": 91.27,
+      "binary_accuracy": 93.33,
+      "broken_format": 0,
+      "n": 30,
+      "sec": 4.3
+    },
+    "math": {
+      "em": 16.67,
+      "broken_format": 3,
+      "n": 30,
+      "sec": 126.3
+    },
+    "sql": {
+      "em": 23.33,
+      "token_f1": 70.19,
+      "broken_format": 0,
+      "n": 30,
+      "sec": 52.0
+    }
+  },
+  "device": "Apple M2 Max (MPS)"
+}

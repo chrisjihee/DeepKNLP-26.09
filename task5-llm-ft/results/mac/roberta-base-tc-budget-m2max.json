@@ -1,0 +1,29 @@
+{
+  "kind": "bert",
+  "model": "klue/roberta-base",
+  "task": "tc",
+  "mode": "budget",
+  "results": {
+    "tc": {
+      "accuracy": 82.67,
+      "broken_format": 0,
+      "macro_f1": 81.82,
+      "n": 300,
+      "sec": 0.5
+    }
+  },
+  "train": {
+    "n_train": 800,
+    "n_features": 800,
+    "epochs": 3.0,
+    "lr": 5e-05,
+    "batch_size": 32,
+    "max_len": 128,
+    "device": "Apple M2 Max (MPS)",
+    "train_seconds": 28.4,
+    "peak_gpu_gb": 3.59,
+    "final_loss": 0.8978,
+    "total_params": 110623495,
+    "trainable_params": 110623495
+  }
+}

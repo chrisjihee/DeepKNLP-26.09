@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>기계독해 데모 — 내가 학습시킨 모델</title>
+<!-- 외부 CDN 을 쓰지 않는다. 강의장에 인터넷이 없어도 그대로 동작해야 한다. -->
+<style>
+:root {
+  --bg:#fbfaf8; --fg:#23201d; --muted:#6f6a63; --line:#e3ded6; --card:#fff;
+  --accent:#7a5cff; --soft:#efeaff; --ok:#2f7d4a; --ok-soft:#e6f4ea; --code:#f4f1ec;
+  --warn:#8a5a00; --warn-soft:#fff4d6;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:#17161a; --fg:#e9e5df; --muted:#9c968d; --line:#3a3740; --card:#1f1e23;
+    --accent:#a48cff; --soft:#2a2340; --ok:#6cc48a; --ok-soft:#1d3326; --code:#26242b;
+    --warn:#f0c060; --warn-soft:#3a2f10;
+  }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg); line-height:1.65; font-size:15px;
+  font-family:-apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR",
+              "Malgun Gothic", sans-serif; }
+.wrap { max-width:900px; margin:0 auto; padding:28px 20px 80px; }
+h1 { font-size:1.5rem; margin:0 0 4px; letter-spacing:-.01em; }
+.sub { color:var(--muted); font-size:.92rem; margin:0 0 22px; }
+.card { border:1px solid var(--line); border-left:4px solid var(--accent); border-radius:12px;
+  background:var(--card); padding:16px 18px; margin-bottom:16px; }
+label { display:block; font-weight:700; font-size:.86rem; margin-bottom:5px; }
+textarea, input[type=text] { width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:9px;
+  background:var(--bg); color:var(--fg); font:inherit; font-size:.93rem; }
+textarea { resize:vertical; min-height:130px; line-height:1.6; }
+.row { display:flex; gap:9px; align-items:center; margin-top:12px; flex-wrap:wrap; }
+button { border:1px solid var(--accent); background:var(--accent); color:#fff; font:inherit;
+  font-weight:600; font-size:.92rem; padding:9px 20px; border-radius:9px; cursor:pointer; }
+button:hover:not(:disabled) { opacity:.88; }
+button:disabled { opacity:.5; cursor:default; }
+.hint { color:var(--muted); font-size:.85rem; }
+.res { border:1px solid var(--line); border-radius:11px; background:var(--card); padding:14px 16px; margin-top:12px; }
+.res.bert { border-left:4px solid #2f7d6e; }
+.res.t5 { border-left:4px solid #a4562a; }
+.res h3 { margin:0 0 8px; font-size:.95rem; display:flex; align-items:center; gap:8px; }
+.tag { font-size:.7rem; font-weight:700; letter-spacing:.06em; color:#fff; border-radius:999px; padding:1px 9px; }
+.res.bert .tag { background:#2f7d6e; }
+.res.t5 .tag { background:#a4562a; }
+.answer { font-size:1.15rem; font-weight:700; padding:10px 13px; border-radius:9px;
+  background:var(--ok-soft); color:var(--fg); word-break:break-all; }
+.answer.empty { background:var(--warn-soft); font-weight:400; color:var(--muted); }
+.meta { display:flex; gap:18px; flex-wrap:wrap; color:var(--muted); font-size:.83rem; margin-top:8px; }
+.meta b { color:var(--fg); font-weight:600; }
+.note { margin-top:8px; font-size:.85rem; padding:7px 11px; border-radius:8px;
+  background:var(--warn-soft); border-left:3px solid var(--warn); }
+.note.good { background:var(--ok-soft); border-left-color:var(--ok); }
+.ctx { margin-top:14px; font-size:.9rem; line-height:1.8; padding:11px 13px; border-radius:9px;
+  background:var(--code); word-break:break-all; }
+mark { background:var(--soft); color:var(--fg); border-radius:3px; padding:1px 2px;
+  box-shadow:inset 0 -2px 0 var(--accent); }
+.msg { margin-top:12px; color:var(--muted); font-size:.9rem; }
+footer { color:var(--muted); font-size:.83rem; margin-top:26px; border-top:1px solid var(--line); padding-top:14px; }
+code { font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:.9em;
+  background:var(--code); border-radius:4px; padding:0 .3em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>기계독해 — 내가 학습시킨 모델에게 물어보기</h1>
+  <p class="sub">
+    지문과 질문을 넣으면 방금 학습한 모델이 답을 냅니다.
+    {% if kinds|length > 1 %}<b>추출형과 생성형이 같은 질문에 어떻게 다르게 답하는지</b> 나란히 보여 줍니다.{% endif %}
+  </p>
+
+  <div class="card">
+    <label for="context">지문 (context)</label>
+    <textarea id="context">{{ default_context }}</textarea>
+    <div style="margin-top:12px">
+      <label for="question">질문 (question)</label>
+      <input type="text" id="question" value="{{ default_question }}">
+    </div>
+    <div class="row">
+      <button id="go" type="button">답 찾기</button>
+      <span class="hint">올린 모델:
+        {% for k in kinds %}<b>{{ k.name }}</b>{% if not loop.last %} · {% endif %}{% endfor %}
+      </span>
+    </div>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <div id="out"></div>
+
+  <footer>
+    답이 마음에 들지 않으면 지문이나 질문을 바꿔 다시 눌러 보세요.
+    <b>답이 지문에 없는 질문</b>을 일부러 해 보는 것이 이 데모의 요점입니다 —
+    추출형은 지문에서 잘라낼 수밖에 없고, 생성형은 없는 말도 써냅니다.
+    멈추려면 터미널에서 <code>Ctrl+C</code>.
+  </footer>
+</div>
+
+<script>
+var ctxEl = document.getElementById('context');
+var qEl = document.getElementById('question');
+var goEl = document.getElementById('go');
+var msgEl = document.getElementById('msg');
+var outEl = document.getElementById('out');
+
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+    return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c];
+  });
+}
+
+// 추출형이 고른 구간을 지문에서 그대로 표시한다 — "잘라낸다"는 것이 눈에 보이게
+function highlight(ctx, start, end) {
+  if (start == null || end == null || end <= start) { return esc(ctx); }
+  return esc(ctx.slice(0, start)) + '<mark>' + esc(ctx.slice(start, end)) + '</mark>' + esc(ctx.slice(end));
+}
+
+function render(data) {
+  var html = '';
+  data.results.forEach(function (r) {
+    var empty = !r.answer || !r.answer.trim();
+    html += '<div class="res ' + r.kind + '">';
+    html += '<h3><span class="tag">' + (r.kind === 'bert' ? '추출형' : '생성형') + '</span>' + esc(r.kind_name) + '</h3>';
+    html += '<div class="answer' + (empty ? ' empty' : '') + '">' + (empty ? '(답을 내지 못했습니다)' : esc(r.answer)) + '</div>';
+
+    var meta = [];
+    if (r.score != null) { meta.push('확신도 <b>' + r.score + '%</b>'); }
+    if (r.start != null && r.end != null) { meta.push('지문의 <b>' + r.start + '~' + r.end + '</b>번째 글자'); }
+    if (meta.length) {
+      html += '<div class="meta">' + meta.map(function (m) { return '<span>' + m + '</span>'; }).join('') + '</div>';
+    }
+
+    if (r.kind === 'bert') {
+      html += '<div class="note good">추출형은 <b>지문에서 잘라낸 것</b>만 답으로 낼 수 있습니다. 아래에서 그 자리를 보세요.</div>';
+      html += '<div class="ctx">' + highlight(data.context, r.start, r.end) + '</div>';
+    } else if (r.in_context === false) {
+      html += '<div class="note">이 답은 <b>지문에 그대로 있지 않습니다.</b> 생성형이 말을 만들어 낸 것입니다 — 맞을 수도, 지어낸 것일 수도 있습니다.</div>';
+    } else {
+      html += '<div class="note good">이 답은 지문에 그대로 있는 표현입니다.</div>';
+    }
+    html += '</div>';
+  });
+  outEl.innerHTML = html;
+}
+
+function ask() {
+  var ctx = ctxEl.value.trim(), q = qEl.value.trim();
+  if (!ctx || !q) { msgEl.textContent = '지문과 질문을 모두 넣어 주세요.'; return; }
+  goEl.disabled = true; msgEl.textContent = '묻는 중…'; outEl.innerHTML = '';
+  fetch('/api', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ context: ctx, question: q })
+  }).then(function (r) { return r.json(); }).then(function (data) {
+    goEl.disabled = false;
+    if (data.error) { msgEl.textContent = data.error; return; }
+    msgEl.textContent = '';
+    render(data);
+  }).catch(function (e) {
+    goEl.disabled = false;
+    msgEl.textContent = '오류가 났습니다: ' + e + ' — 터미널의 서버 로그를 보세요.';
+  });
+}
+
+goEl.addEventListener('click', ask);
+qEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') { ask(); } });
+</script>
+</body>
+</html>

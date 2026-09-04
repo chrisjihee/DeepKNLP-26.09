@@ -1,0 +1,39 @@
+{
+  "model": "LGAI-EXAONE/EXAONE-4.0-1.2B",
+  "data": "data/llm-ft/train_main.jsonl",
+  "template_fix": {
+    "end_token": "[|endofturn|]",
+    "duplicates": 0,
+    "action": "ok"
+  },
+  "n_train": 4800,
+  "per_task": {
+    "mrc": 800,
+    "tc": 800,
+    "sql": 800,
+    "math": 800,
+    "ner": 1000,
+    "sts": 600
+  },
+  "epochs": 1.0,
+  "batch_size": 4,
+  "grad_accum": 4,
+  "lr": 0.0002,
+  "max_length": 1024,
+  "lora_r": 16,
+  "load_4bit": false,
+  "chat_template": "native",
+  "loss_mode": "전체 시퀀스 (템플릿 제약)",
+  "trainable_params": 15237120,
+  "total_params": 1294628608,
+  "trainable_pct": 1.177,
+  "device": "Apple M2 Max (MPS)",
+  "train_seconds": 189.3,
+  "peak_gpu_gb": 9.06,
+  "final_loss": 2.3047,
+  "loss_curve": [
+    2.3047
+  ],
+  "max_steps": 10,
+  "note": "속도 측정용 10스텝만 학습; final_loss는 LR 스케줄이 10스텝 안에 다 감쇠해 전체 학습과 비교 불가"
+}

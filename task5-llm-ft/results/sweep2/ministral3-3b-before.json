@@ -1,0 +1,48 @@
+{
+  "model": "mistralai/Ministral-3-3B-Instruct-2512-BF16",
+  "adapter": null,
+  "data": "data/llm-ft",
+  "results": {
+    "tc": {
+      "accuracy": 44.33,
+      "broken_format": 3,
+      "macro_f1": 36.91,
+      "n": 300,
+      "sec": 6.1
+    },
+    "ner": {
+      "f1": 24.66,
+      "precision": 40.72,
+      "recall": 17.69,
+      "broken_format": 3,
+      "n": 300,
+      "sec": 66.8
+    },
+    "mrc": {
+      "em": 45.0,
+      "f1": 70.4,
+      "n": 300,
+      "sec": 28.2
+    },
+    "sts": {
+      "pearson": 60.98,
+      "binary_accuracy": 42.67,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 5.8
+    },
+    "math": {
+      "em": 55.67,
+      "broken_format": 12,
+      "n": 300,
+      "sec": 180.2
+    },
+    "sql": {
+      "em": 10.67,
+      "token_f1": 63.39,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 58.9
+    }
+  }
+}

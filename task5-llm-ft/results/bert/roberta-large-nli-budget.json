@@ -1,0 +1,27 @@
+{
+  "kind": "bert",
+  "model": "klue/roberta-large",
+  "task": "nli",
+  "mode": "budget",
+  "results": {
+    "nli": {
+      "accuracy": 76.67,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 0.4
+    }
+  },
+  "train": {
+    "n_train": 800,
+    "n_features": 800,
+    "epochs": 3.0,
+    "lr": 5e-05,
+    "batch_size": 32,
+    "max_len": 128,
+    "train_seconds": 12.3,
+    "peak_gpu_gb": 6.99,
+    "final_loss": 0.6815,
+    "total_params": 336659459,
+    "trainable_params": 336659459
+  }
+}

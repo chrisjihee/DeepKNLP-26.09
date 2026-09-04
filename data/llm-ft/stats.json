@@ -1,0 +1,98 @@
+{
+  "total_train": 3000,
+  "total_train_all": 5200,
+  "total_train_main": 4800,
+  "main_tasks": [
+    "tc",
+    "ner",
+    "mrc",
+    "sts",
+    "math",
+    "sql"
+  ],
+  "core_tasks": [
+    "cls",
+    "ner",
+    "mrc"
+  ],
+  "ext_tasks": [
+    "tc",
+    "nli",
+    "sts"
+  ],
+  "per_task": {
+    "cls": {
+      "name": "감성분류",
+      "dataset": "NSMC",
+      "train": 1200,
+      "eval": 500,
+      "train_src": "data/nsmc/train.jsonl",
+      "eval_src": "data/nsmc/test.jsonl",
+      "dropped_by_leak": 4
+    },
+    "ner": {
+      "name": "개체명인식",
+      "dataset": "KLUE-NER",
+      "train": 1000,
+      "eval": 300,
+      "train_src": "data/klue-ner/train.jsonl",
+      "eval_src": "data/klue-ner/test.jsonl",
+      "dropped_by_leak": 0
+    },
+    "mrc": {
+      "name": "기계독해",
+      "dataset": "KorQuAD",
+      "train": 800,
+      "eval": 300,
+      "train_src": "data/korquad/train.jsonl",
+      "eval_src": "data/korquad/validation.jsonl",
+      "dropped_by_leak": 0
+    },
+    "tc": {
+      "name": "주제분류",
+      "dataset": "KLUE-YNAT",
+      "train": 800,
+      "eval": 300,
+      "train_src": "data/klue-ynat/train.jsonl",
+      "eval_src": "data/klue-ynat/validation.jsonl",
+      "dropped_by_leak": 0
+    },
+    "nli": {
+      "name": "자연어추론",
+      "dataset": "KLUE-NLI",
+      "train": 800,
+      "eval": 300,
+      "train_src": "data/klue-nli/train.jsonl",
+      "eval_src": "data/klue-nli/validation.jsonl",
+      "dropped_by_leak": 0
+    },
+    "sts": {
+      "name": "문장유사도",
+      "dataset": "KLUE-STS",
+      "train": 600,
+      "eval": 300,
+      "train_src": "data/klue-sts/train.jsonl",
+      "eval_src": "data/klue-sts/validation.jsonl",
+      "dropped_by_leak": 0
+    },
+    "math": {
+      "name": "수학추론",
+      "dataset": "GSM8K-ko",
+      "train": 800,
+      "eval": 300,
+      "train_src": "data/gsm8k-ko/train.jsonl",
+      "eval_src": "data/gsm8k-ko/test.jsonl",
+      "dropped_by_leak": 0
+    },
+    "sql": {
+      "name": "SQL생성",
+      "dataset": "Spider-ko",
+      "train": 800,
+      "eval": 300,
+      "train_src": "data/spider-ko/train.jsonl",
+      "eval_src": "data/spider-ko/validation.jsonl",
+      "dropped_by_leak": 0
+    }
+  },
+  "seed": 42
+}

@@ -1,0 +1,29 @@
+{
+  "kind": "bert",
+  "model": "monologg/koelectra-base-v3-discriminator",
+  "task": "ner",
+  "mode": "full",
+  "results": {
+    "ner": {
+      "f1": 85.6,
+      "precision": 83.03,
+      "recall": 88.33,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 0.1
+    }
+  },
+  "train": {
+    "n_train": 20999,
+    "n_features": 20999,
+    "epochs": 1.0,
+    "lr": 3e-05,
+    "batch_size": 32,
+    "max_len": 128,
+    "train_seconds": 30.1,
+    "peak_gpu_gb": 2.81,
+    "final_loss": 0.2804,
+    "total_params": 112340749,
+    "trainable_params": 112340749
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "model": "LGAI-EXAONE/EXAONE-4.0-1.2B",
+  "adapter": "output/llm-ft-exaone",
+  "results": {
+    "cls": {
+      "accuracy": 88.0,
+      "n": 300,
+      "sec": 2.8
+    },
+    "ner": {
+      "f1": 63.48,
+      "precision": 63.9,
+      "recall": 63.06,
+      "broken_format": 1,
+      "n": 300,
+      "sec": 75.6
+    },
+    "mrc": {
+      "em": 75.67,
+      "f1": 86.06,
+      "n": 300,
+      "sec": 12.7
+    }
+  }
+}

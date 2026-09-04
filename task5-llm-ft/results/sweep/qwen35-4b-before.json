@@ -1,0 +1,47 @@
+{
+  "model": "Qwen/Qwen3.5-4B",
+  "adapter": null,
+  "data": "data/llm-ft",
+  "results": {
+    "cls": {
+      "accuracy": 86.33,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 11.6
+    },
+    "ner": {
+      "f1": 42.94,
+      "precision": 43.28,
+      "recall": 42.6,
+      "broken_format": 5,
+      "n": 300,
+      "sec": 137.3
+    },
+    "mrc": {
+      "em": 74.0,
+      "f1": 88.66,
+      "n": 300,
+      "sec": 41.0
+    },
+    "tc": {
+      "accuracy": 61.33,
+      "broken_format": 0,
+      "macro_f1": 58.25,
+      "n": 300,
+      "sec": 9.3
+    },
+    "nli": {
+      "accuracy": 62.0,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 13.5
+    },
+    "sts": {
+      "pearson": 83.13,
+      "binary_accuracy": 75.0,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 13.9
+    }
+  }
+}

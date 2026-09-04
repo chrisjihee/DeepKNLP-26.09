@@ -1,0 +1,47 @@
+{
+  "model": "LGAI-EXAONE/EXAONE-4.0-1.2B",
+  "adapter": null,
+  "data": "data/llm-ft",
+  "results": {
+    "cls": {
+      "accuracy": 46.67,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 2.9
+    },
+    "ner": {
+      "f1": 10.85,
+      "precision": 11.13,
+      "recall": 10.59,
+      "broken_format": 10,
+      "n": 300,
+      "sec": 109.1
+    },
+    "mrc": {
+      "em": 46.67,
+      "f1": 69.31,
+      "n": 300,
+      "sec": 24.4
+    },
+    "tc": {
+      "accuracy": 20.67,
+      "broken_format": 12,
+      "macro_f1": 14.11,
+      "n": 300,
+      "sec": 3.9
+    },
+    "nli": {
+      "accuracy": 29.33,
+      "broken_format": 44,
+      "n": 300,
+      "sec": 4.4
+    },
+    "sts": {
+      "pearson": 4.19,
+      "binary_accuracy": 50.0,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 4.3
+    }
+  }
+}

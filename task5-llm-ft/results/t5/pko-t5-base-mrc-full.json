@@ -1,0 +1,18 @@
+{
+  "model": "paust/pko-t5-base",
+  "family": "t5",
+  "task": "mrc",
+  "mode": "full",
+  "n_train": 60407,
+  "n_eval": 300,
+  "epochs": 1.0,
+  "lr": 0.0003,
+  "train_seconds": 3358.9,
+  "eval_seconds": 6.5,
+  "peak_gpu_gb": 42.89,
+  "total_params": 275579136,
+  "summary": {
+    "em": 84.0,
+    "f1": 92.7
+  }
+}

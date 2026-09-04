@@ -1,0 +1,19 @@
+{
+  "model": "paust/pko-t5-base",
+  "family": "t5",
+  "task": "sql",
+  "mode": "budget",
+  "n_train": 800,
+  "n_eval": 300,
+  "epochs": 3.0,
+  "lr": 0.0003,
+  "train_seconds": 438.6,
+  "eval_seconds": 93.7,
+  "peak_gpu_gb": 25.18,
+  "total_params": 275579136,
+  "summary": {
+    "em": 0.33,
+    "token_f1": 47.69,
+    "broken_format": 0
+  }
+}

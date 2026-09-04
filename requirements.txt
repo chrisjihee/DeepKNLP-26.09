@@ -1,0 +1,39 @@
+# Machine Learning
+--extra-index-url https://download.pytorch.org/whl/cu128
+torch>=2.7.0
+lightning
+pytorch_lightning
+accelerate
+sentencepiece
+scikit-learn
+torchmetrics
+seqeval
+datasets
+tensorboard
+evaluate
+
+# Utils
+pydantic
+importlib-metadata
+
+# Server
+Flask
+Flask-Classful
+
+# LLM Fine-tuning (task5-llm-ft)
+transformers>=5.16
+trl>=1.12
+peft>=0.20
+bitsandbytes>=0.50
+
+# Comparison / Notebooks
+pandas
+matplotlib
+jupyterlab
+ipykernel
+nbconvert
+
+# Custom
+chrisbase==0.5.8
+
+ipywidgets

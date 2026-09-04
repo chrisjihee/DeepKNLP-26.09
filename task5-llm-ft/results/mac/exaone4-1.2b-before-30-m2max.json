@@ -1,0 +1,61 @@
+{
+  "model": "LGAI-EXAONE/EXAONE-4.0-1.2B",
+  "adapter": null,
+  "data": "data/llm-ft",
+  "results": {
+    "cls": {
+      "accuracy": 76.67,
+      "broken_format": 0,
+      "n": 30,
+      "sec": 4.5
+    },
+    "ner": {
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "broken_format": 0,
+      "n": 30,
+      "sec": 3.5
+    },
+    "mrc": {
+      "em": 50.0,
+      "f1": 69.86,
+      "n": 30,
+      "sec": 12.3
+    },
+    "tc": {
+      "accuracy": 46.67,
+      "broken_format": 1,
+      "macro_f1": 37.38,
+      "n": 30,
+      "sec": 2.4
+    },
+    "nli": {
+      "accuracy": 50.0,
+      "broken_format": 0,
+      "n": 30,
+      "sec": 3.9
+    },
+    "sts": {
+      "pearson": 9.63,
+      "binary_accuracy": 56.67,
+      "broken_format": 0,
+      "n": 30,
+      "sec": 4.0
+    },
+    "math": {
+      "em": 43.33,
+      "broken_format": 7,
+      "n": 30,
+      "sec": 53.5
+    },
+    "sql": {
+      "em": 0.0,
+      "token_f1": 51.82,
+      "broken_format": 2,
+      "n": 30,
+      "sec": 34.9
+    }
+  },
+  "device": "Apple M2 Max (MPS)"
+}

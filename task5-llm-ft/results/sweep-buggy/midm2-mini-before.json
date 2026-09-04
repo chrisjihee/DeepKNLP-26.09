@@ -1,0 +1,47 @@
+{
+  "model": "K-intelligence/Midm-2.0-Mini-Instruct",
+  "adapter": null,
+  "data": "data/llm-ft",
+  "results": {
+    "cls": {
+      "accuracy": 82.33,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 14.0
+    },
+    "ner": {
+      "f1": 30.17,
+      "precision": 25.5,
+      "recall": 36.94,
+      "broken_format": 9,
+      "n": 300,
+      "sec": 194.1
+    },
+    "mrc": {
+      "em": 64.33,
+      "f1": 80.26,
+      "n": 300,
+      "sec": 45.0
+    },
+    "tc": {
+      "accuracy": 63.67,
+      "broken_format": 9,
+      "macro_f1": 60.67,
+      "n": 300,
+      "sec": 18.3
+    },
+    "nli": {
+      "accuracy": 33.0,
+      "broken_format": 169,
+      "n": 300,
+      "sec": 20.9
+    },
+    "sts": {
+      "pearson": 21.25,
+      "binary_accuracy": 57.33,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 20.5
+    }
+  }
+}

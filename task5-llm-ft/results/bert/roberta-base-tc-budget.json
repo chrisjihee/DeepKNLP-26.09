@@ -1,0 +1,28 @@
+{
+  "kind": "bert",
+  "model": "klue/roberta-base",
+  "task": "tc",
+  "mode": "budget",
+  "results": {
+    "tc": {
+      "accuracy": 79.67,
+      "broken_format": 0,
+      "macro_f1": 79.85,
+      "n": 300,
+      "sec": 0.1
+    }
+  },
+  "train": {
+    "n_train": 800,
+    "n_features": 800,
+    "epochs": 3.0,
+    "lr": 5e-05,
+    "batch_size": 32,
+    "max_len": 128,
+    "train_seconds": 3.8,
+    "peak_gpu_gb": 1.77,
+    "final_loss": 0.8718,
+    "total_params": 110623495,
+    "trainable_params": 110623495
+  }
+}

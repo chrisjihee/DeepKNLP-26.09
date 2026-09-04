@@ -1,0 +1,48 @@
+{
+  "model": "meta-llama/Llama-3.2-3B-Instruct",
+  "adapter": null,
+  "data": "data/llm-ft",
+  "results": {
+    "tc": {
+      "accuracy": 38.67,
+      "broken_format": 8,
+      "macro_f1": 43.96,
+      "n": 300,
+      "sec": 16.8
+    },
+    "ner": {
+      "f1": 0.24,
+      "precision": 8.33,
+      "recall": 0.12,
+      "broken_format": 10,
+      "n": 300,
+      "sec": 107.8
+    },
+    "mrc": {
+      "em": 66.67,
+      "f1": 81.17,
+      "n": 300,
+      "sec": 51.7
+    },
+    "sts": {
+      "pearson": 0.51,
+      "binary_accuracy": 42.67,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 13.1
+    },
+    "math": {
+      "em": 34.33,
+      "broken_format": 160,
+      "n": 300,
+      "sec": 320.8
+    },
+    "sql": {
+      "em": 19.33,
+      "token_f1": 74.3,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 47.1
+    }
+  }
+}

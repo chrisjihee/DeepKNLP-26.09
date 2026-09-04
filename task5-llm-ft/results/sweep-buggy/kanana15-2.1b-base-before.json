@@ -1,0 +1,47 @@
+{
+  "model": "kakaocorp/kanana-1.5-2.1b-base",
+  "adapter": null,
+  "data": "data/llm-ft",
+  "results": {
+    "cls": {
+      "accuracy": 68.0,
+      "broken_format": 42,
+      "n": 300,
+      "sec": 6.9
+    },
+    "ner": {
+      "f1": 8.77,
+      "precision": 15.36,
+      "recall": 6.14,
+      "broken_format": 115,
+      "n": 300,
+      "sec": 108.9
+    },
+    "mrc": {
+      "em": 0.0,
+      "f1": 72.86,
+      "n": 300,
+      "sec": 35.2
+    },
+    "tc": {
+      "accuracy": 55.67,
+      "broken_format": 16,
+      "macro_f1": 39.93,
+      "n": 300,
+      "sec": 6.0
+    },
+    "nli": {
+      "accuracy": 0.0,
+      "broken_format": 300,
+      "n": 300,
+      "sec": 7.3
+    },
+    "sts": {
+      "pearson": 5.61,
+      "binary_accuracy": 56.67,
+      "broken_format": 238,
+      "n": 300,
+      "sec": 7.2
+    }
+  }
+}

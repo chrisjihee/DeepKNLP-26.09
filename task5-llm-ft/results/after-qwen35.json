@@ -1,0 +1,25 @@
+{
+  "model": "Qwen/Qwen3.5-2B",
+  "adapter": "output/llm-ft-qwen35",
+  "results": {
+    "cls": {
+      "accuracy": 86.33,
+      "n": 300,
+      "sec": 7.6
+    },
+    "ner": {
+      "f1": 80.25,
+      "precision": 82.65,
+      "recall": 77.98,
+      "broken_format": 2,
+      "n": 300,
+      "sec": 86.9
+    },
+    "mrc": {
+      "em": 80.33,
+      "f1": 89.23,
+      "n": 300,
+      "sec": 19.8
+    }
+  }
+}

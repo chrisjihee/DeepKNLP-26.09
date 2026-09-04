@@ -1,0 +1,27 @@
+{
+  "kind": "bert",
+  "model": "klue/roberta-small",
+  "task": "cls",
+  "mode": "full",
+  "results": {
+    "cls": {
+      "accuracy": 93.33,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 0.1
+    }
+  },
+  "train": {
+    "n_train": 149817,
+    "n_features": 149817,
+    "epochs": 1.0,
+    "lr": 3e-05,
+    "batch_size": 32,
+    "max_len": 128,
+    "train_seconds": 149.0,
+    "peak_gpu_gb": 1.7,
+    "final_loss": 0.2971,
+    "total_params": 68092418,
+    "trainable_params": 68092418
+  }
+}

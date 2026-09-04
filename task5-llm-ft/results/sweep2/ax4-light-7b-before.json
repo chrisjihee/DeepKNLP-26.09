@@ -1,0 +1,48 @@
+{
+  "model": "skt/A.X-4.0-Light",
+  "adapter": null,
+  "data": "data/llm-ft",
+  "results": {
+    "tc": {
+      "accuracy": 59.33,
+      "broken_format": 10,
+      "macro_f1": 62.34,
+      "n": 300,
+      "sec": 6.3
+    },
+    "ner": {
+      "f1": 43.99,
+      "precision": 50.47,
+      "recall": 38.99,
+      "broken_format": 2,
+      "n": 300,
+      "sec": 75.6
+    },
+    "mrc": {
+      "em": 61.33,
+      "f1": 81.39,
+      "n": 300,
+      "sec": 28.8
+    },
+    "sts": {
+      "pearson": 79.29,
+      "binary_accuracy": 74.0,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 7.9
+    },
+    "math": {
+      "em": 51.0,
+      "broken_format": 33,
+      "n": 300,
+      "sec": 184.5
+    },
+    "sql": {
+      "em": 17.0,
+      "token_f1": 69.35,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 89.5
+    }
+  }
+}

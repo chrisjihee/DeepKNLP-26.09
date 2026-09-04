@@ -1,0 +1,47 @@
+{
+  "model": "google/gemma-4-E4B-it",
+  "adapter": null,
+  "data": "data/llm-ft",
+  "results": {
+    "cls": {
+      "accuracy": 88.0,
+      "broken_format": 5,
+      "n": 300,
+      "sec": 15.7
+    },
+    "ner": {
+      "f1": 50.55,
+      "precision": 72.26,
+      "recall": 38.87,
+      "broken_format": 6,
+      "n": 300,
+      "sec": 237.0
+    },
+    "mrc": {
+      "em": 63.33,
+      "f1": 84.58,
+      "n": 300,
+      "sec": 66.5
+    },
+    "tc": {
+      "accuracy": 67.67,
+      "broken_format": 29,
+      "macro_f1": 71.77,
+      "n": 300,
+      "sec": 12.8
+    },
+    "nli": {
+      "accuracy": 80.33,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 18.6
+    },
+    "sts": {
+      "pearson": 82.69,
+      "binary_accuracy": 74.33,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 19.4
+    }
+  }
+}

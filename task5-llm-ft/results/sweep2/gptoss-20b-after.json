@@ -1,0 +1,48 @@
+{
+  "model": "openai/gpt-oss-20b",
+  "adapter": "output/sweep/gptoss-20b",
+  "data": "data/llm-ft",
+  "results": {
+    "tc": {
+      "accuracy": 75.33,
+      "broken_format": 1,
+      "macro_f1": 73.93,
+      "n": 300,
+      "sec": 19.8
+    },
+    "ner": {
+      "f1": 80.93,
+      "precision": 82.5,
+      "recall": 79.42,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 560.4
+    },
+    "mrc": {
+      "em": 81.67,
+      "f1": 93.14,
+      "n": 300,
+      "sec": 70.6
+    },
+    "sts": {
+      "pearson": 88.05,
+      "binary_accuracy": 88.0,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 24.1
+    },
+    "math": {
+      "em": 62.0,
+      "broken_format": 10,
+      "n": 300,
+      "sec": 1294.7
+    },
+    "sql": {
+      "em": 46.0,
+      "token_f1": 87.46,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 375.6
+    }
+  }
+}

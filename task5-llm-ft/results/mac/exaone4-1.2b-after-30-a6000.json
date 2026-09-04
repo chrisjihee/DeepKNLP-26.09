@@ -1,0 +1,61 @@
+{
+  "model": "LGAI-EXAONE/EXAONE-4.0-1.2B",
+  "adapter": "results/sweep2 adapter (trained on RTX A6000), evaluated on RTX A6000",
+  "data": "data/llm-ft",
+  "results": {
+    "cls": {
+      "accuracy": 73.33,
+      "broken_format": 0,
+      "n": 30,
+      "sec": 0.6
+    },
+    "ner": {
+      "f1": 62.5,
+      "precision": 65.57,
+      "recall": 59.7,
+      "broken_format": 0,
+      "n": 30,
+      "sec": 5.6
+    },
+    "mrc": {
+      "em": 73.33,
+      "f1": 86.69,
+      "n": 30,
+      "sec": 1.2
+    },
+    "tc": {
+      "accuracy": 76.67,
+      "broken_format": 0,
+      "macro_f1": 56.68,
+      "n": 30,
+      "sec": 0.3
+    },
+    "nli": {
+      "accuracy": 56.67,
+      "broken_format": 0,
+      "n": 30,
+      "sec": 0.4
+    },
+    "sts": {
+      "pearson": 91.44,
+      "binary_accuracy": 93.33,
+      "broken_format": 0,
+      "n": 30,
+      "sec": 0.4
+    },
+    "math": {
+      "em": 26.67,
+      "broken_format": 2,
+      "n": 30,
+      "sec": 26.2
+    },
+    "sql": {
+      "em": 23.33,
+      "token_f1": 71.57,
+      "broken_format": 0,
+      "n": 30,
+      "sec": 6.9
+    }
+  },
+  "device": "NVIDIA RTX A6000"
+}

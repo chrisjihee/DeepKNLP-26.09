@@ -1,0 +1,28 @@
+{
+  "kind": "bert",
+  "model": "klue/bert-base",
+  "task": "sts",
+  "mode": "budget",
+  "results": {
+    "sts": {
+      "pearson": 77.67,
+      "binary_accuracy": 77.33,
+      "broken_format": 0,
+      "n": 300,
+      "sec": 0.1
+    }
+  },
+  "train": {
+    "n_train": 600,
+    "n_features": 600,
+    "epochs": 3.0,
+    "lr": 5e-05,
+    "batch_size": 32,
+    "max_len": 128,
+    "train_seconds": 3.3,
+    "peak_gpu_gb": 2.81,
+    "final_loss": 1.7772,
+    "total_params": 110618113,
+    "trainable_params": 110618113
+  }
+}
